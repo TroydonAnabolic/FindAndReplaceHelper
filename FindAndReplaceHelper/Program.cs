@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace FindAndReplaceHelper
@@ -8,6 +9,13 @@ namespace FindAndReplaceHelper
     {
         static void Main(string[] args)
         { // TODO: use condition logic to elect a different starting paragraph for varied role types aka admin, support, dev, game dev next week.
+            // maybe create loops on each readline assignment to prompt for confirmation
+            // Change this to an exe file, or a WinFOrms GUI/Web App
+
+            // method to maybe increase length of console.readline
+            byte[] inputBuffer = new byte[1024];
+            Stream inputStream = Console.OpenStandardInput(inputBuffer.Length);
+            Console.SetIn(new StreamReader(inputStream, Console.InputEncoding, false, inputBuffer.Length));
 
             // Create new word application
             Application word = new Application();
@@ -134,6 +142,7 @@ namespace FindAndReplaceHelper
                 object outputFI;
                 string output;
 
+                // TODO:possibly put this all on the top except saveas so we can use it when selecting the top intro part to acustom to job type
                 do
                 {
                     Console.WriteLine("What output would you like: 'admin' 'itadmin' 'dev' 'support' 'sales'");
@@ -195,6 +204,9 @@ namespace FindAndReplaceHelper
 
             GC.Collect();
             GC.WaitForPendingFinalizers();
+
+
+            
         }
     }
 }
