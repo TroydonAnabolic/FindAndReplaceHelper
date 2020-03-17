@@ -32,8 +32,9 @@ namespace FindAndReplaceHelper
                 string company = Console.ReadLine();
                 if (company == "no") company = ""; // if there is no name we reassign the value with an empty string
 
-                string addressingEmployer = "Sir/Madam"; // initial value will be Dear Sir/madam
-                if (hiringManagersName == "no") addressingEmployer = hiringManagersName; // if response was  no, we will assign with the name in place of Sir/Madam
+                string addressingEmployer = ""; // initial value will be Dear Sir/madam
+                if (hiringManagersName == "") addressingEmployer = "Sir/Madam"; // if response was  no, we will assign with the name in place of Sir/Madam
+                else if (hiringManagersName != "")addressingEmployer = hiringManagersName; 
 
                 Console.WriteLine("Enter the role title");
                 string roleTitle = Console.ReadLine();
