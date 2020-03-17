@@ -171,6 +171,25 @@ namespace FindAndReplaceHelper
                     }
                 } while (output != "admin" && output != "itadmin" && output != "dev" && output != "support" && output != "sales"); // if all of these do not contain key word we keep looping
 
+                // CHeck spelling
+                var language = word.Languages[WdLanguageID.wdEnglishUS];
+
+                // Set the filename of the custom dictionary
+                // -- Based on:
+                // http://support.microsoft.com/kb/292108
+                // http://www.delphigroups.info/2/c2/261707.html
+                const string custDict = "custom.dic";
+
+                // Get the spelling suggestions
+                var suggestions = word.GetSpellingSuggestions("overfloww", custDict, MainDictionary: language.Name);
+
+                // Print each suggestion to the console
+                foreach (SpellingSuggestion spellingSuggestion in suggestions)
+                    Console.WriteLine("Suggested replacement: {0}", spellingSuggestion.Name);
+
+                // TODO: make corrections
+
+
                 docs.SaveAs(ref outputFI, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss);
 
                 // then close the word document and close MS word process
