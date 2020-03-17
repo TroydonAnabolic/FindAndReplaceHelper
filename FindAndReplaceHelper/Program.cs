@@ -7,7 +7,7 @@ namespace FindAndReplaceHelper
     class Program
     {
         static void Main(string[] args)
-        { // TODO: Fix Word file being read not closing
+        { // TODO: use condition logic to elect a different starting paragraph for varied role types aka admin, support, dev, game dev next week.
 
             // Create new word application
             Application word = new Application();
@@ -34,7 +34,7 @@ namespace FindAndReplaceHelper
 
                 string addressingEmployer = ""; // initial value will be Dear Sir/madam
                 if (hiringManagersName == "") addressingEmployer = "Sir/Madam"; // if response was  no, we will assign with the name in place of Sir/Madam
-                else if (hiringManagersName != "")addressingEmployer = hiringManagersName; 
+                else if (hiringManagersName != "") addressingEmployer = hiringManagersName;
 
                 Console.WriteLine("Enter the role title");
                 string roleTitle = Console.ReadLine();
@@ -132,30 +132,35 @@ namespace FindAndReplaceHelper
 
                 // determine outputfile name
                 object outputFI;
-                Console.WriteLine("What output would you like: 'admin' 'itadmin' 'dev' 'support' 'sales'");
-                string output = Console.ReadLine();
+                string output;
 
-                switch (output)
+                do
                 {
-                    case "admin":
-                        outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\GeneralAdminCover.docx";
-                        break;
-                    case "itadmin":
-                        outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\ItAdminCover.docx";
-                        break;
-                    case "dev":
-                        outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\SoftWareDeveloperCover.docx";
-                        break;
-                    case "support":
-                        outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\ITSupportCover.docx";
-                        break;
-                    case "sales":
-                        outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\ITSalesCover.docx";
-                        break;
-                    default:
-                        outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\SoftWareDeveloperCover.docx";
-                        break;
-                }
+                    Console.WriteLine("What output would you like: 'admin' 'itadmin' 'dev' 'support' 'sales'");
+                    output = Console.ReadLine();
+
+                    switch (output)
+                    {
+                        case "admin":
+                            outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\GeneralAdminCover.docx";
+                            break;
+                        case "itadmin":
+                            outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\ItAdminCover.docx";
+                            break;
+                        case "dev":
+                            outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\SoftWareDeveloperCover.docx";
+                            break;
+                        case "support":
+                            outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\ITSupportCover.docx";
+                            break;
+                        case "sales":
+                            outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\ITSalesCover.docx";
+                            break;
+                        default:
+                            outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\SoftWareDeveloperCover.docx";
+                            break;
+                    }
+                } while (output != "admin" && output != "itadmin" && output != "dev" && output != "support" && output != "sales"); // if all of these do not contain key word we keep looping
 
                 docs.SaveAs(ref outputFI, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss);
 
