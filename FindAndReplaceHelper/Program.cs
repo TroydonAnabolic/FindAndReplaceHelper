@@ -12,7 +12,7 @@ namespace FindAndReplaceHelper
             // maybe create loops on each readline assignment to prompt for confirmation
             // Change this to an exe file, or a WinFOrms GUI/Web App
 
-            // method to maybe increase length of console.readline
+            // TODO: method to maybe increase length of what console.readline
             byte[] inputBuffer = new byte[1024];
             Stream inputStream = Console.OpenStandardInput(inputBuffer.Length);
             Console.SetIn(new StreamReader(inputStream, Console.InputEncoding, false, inputBuffer.Length));
