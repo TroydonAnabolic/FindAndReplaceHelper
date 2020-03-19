@@ -37,10 +37,12 @@ namespace FindAndReplaceHelper
                 string output;
                 do
                 {
+
                         // Set user secrets for relevant skills 
                     string relevantSkills = "";
                     Console.WriteLine("What output would you like: 'admin' 'itadmin' 'dev' 'support' 'sales'");
                     output = Console.ReadLine();
+
                     if (output == "admin")
                         relevantSkills = "I have three years’ work experience working in a call centre as a Customer Service Rep with Woolworths Mobile. Some of the duties of the role included managing SAP tickets, whereby I had to administer events such as network incidents, transport and logistics, customer complaints, and input relevant data such as customer information, device details, funds, network incidents and faults. I was also known by the company to perform well with these duties.";
                     else if (output == "itadmin")
@@ -48,9 +50,9 @@ namespace FindAndReplaceHelper
                     else if (output == "dev")
                         relevantSkills = "I have relevant skills useful to the role, which I obtained when I completed a Certificate IV in programming, that include basic C# OOP, ASP.NET Core, HTML, CSS, JavaScript, jQuery, SQL DBMS, Unity3D, Windows 10 OS, Microsoft Office 365 including Word and Excel, basic understanding of cloud services such as Azure and AWS. I am now applying these technologies into building my knowledge and skill level in creating beautiful, user friendly software, web and game applications. I am also working on using the programming, scripting and mark-up languages to learn the programming concepts such as algorithms, data structures, writing user-centric functional specifications, writing scalable code, understanding conditional logic, database design, responsive design.";
                     else if (output == "support")
-                        relevantSkills = "I am interested in this position; I believe I have the skills and enthusiasm needed to do well. I am looking to secure a role that involves working with technology. I enjoy working with technology and dealing with computers, and Windows OS. I have knowledge in Office 364 Suite and great troubleshooting skills, which I have gained when working with Woolworths Mobile as a Tech Support Representative for mobile devices including devices such as Android, iOS and OPPO.";
+                        relevantSkills = "I am interested in this position; I believe I have the skills and enthusiasm needed to do well. I am looking to secure a role that involves working with technology. I enjoy working with technology and dealing with computers, and Windows OS. I have knowledge in Office 365 Suite and great troubleshooting skills, which I have gained when working with Woolworths Mobile as a Tech Support Representative for mobile devices including devices such as Android, iOS and OPPO.";
                     else if (output == "sales")
-                        relevantSkills = "I am interested in this position; I believe I have the skills and enthusiasm needed to do well. I am looking to secure a role that involves working with technology. I enjoy working with technology and dealing with computers, and Windows OS. I have knowledge in Office 364 Suite and great sales skills, which I have gained when working with Woolworths Mobile as a Tech Support Representative for mobile devices including devices such as Android, and OPPO."; 
+                        relevantSkills = "I am interested in this position; I believe I have the skills and enthusiasm needed to do well. I am looking to secure a role that involves working with technology. I enjoy working with technology and dealing with computers, and Windows OS. I have knowledge in Office 365 Suite and great sales skills, which I have gained when working with Woolworths Mobile as a Tech Support Representative for mobile devices including devices such as Android, and OPPO."; 
                     // TODO: Maybe implement confirmation after each prompt later
                     // Gather all variables that we will need to insert into the document
                     string date = DateTime.Now.ToString("dddd, dd MMMM yyyy");
@@ -214,7 +216,7 @@ namespace FindAndReplaceHelper
                             outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\SoftWareDeveloperCover.docx";
                             break;
                     }
-                } while (output != "admin" && output != "itadmin" && output != "dev" && output != "support" && output != "sales"); // if all of these do not contain key word we keep looping
+                } while (CheckOutput(output)); // if all of these do not contain key word we keep looping
 
                 // CHeck spelling
                 var language = word.Languages[WdLanguageID.wdEnglishUS];
@@ -256,6 +258,12 @@ namespace FindAndReplaceHelper
             GC.WaitForPendingFinalizers();
         }
 
+        // bool that returns false if any condition is true !CheckOutput(output) should be used to return true
+        private static bool CheckOutput(string output)
+        {
+            if (output != "admin" && output != "itadmin" && output != "dev" && output != "support" && output != "sales") return true; // if none match return false
+            else return false; // if one matches we return false and break the loop
+        }
         private static void CloseWordApplication(ref Application word, ref object miss, ref Document docs)
         {
             if (docs != null)
