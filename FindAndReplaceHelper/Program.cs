@@ -33,33 +33,105 @@ namespace FindAndReplaceHelper
             {
                 //
                 // determine outputfile name
-                object outputFI;
-                string output;
+                object outputFI = new object(); // check if instantiation works
+                string output = "", inputError = "Sorry you did not enter a valid input", hiringManagersName = null, relevantSkills = "";
+                int count = 0;
+                bool outputMatch = true;
+
                 do
                 {
+                    // Set user secrets for relevant skills 
 
-                        // Set user secrets for relevant skills 
-                    string relevantSkills = "";
-                    Console.WriteLine("What output would you like: 'admin' 'itadmin' 'dev' 'support' 'sales'");
-                    output = Console.ReadLine();
+                    // evaluates to true if none matches, false if there is a match ( anytime the loop is reset, we reassgin the correct output return type
+                    outputMatch = CheckOutput(output);
 
-                    if (output == "admin")
-                        relevantSkills = "I have three years’ work experience working in a call centre as a Customer Service Rep with Woolworths Mobile. Some of the duties of the role included managing SAP tickets, whereby I had to administer events such as network incidents, transport and logistics, customer complaints, and input relevant data such as customer information, device details, funds, network incidents and faults. I was also known by the company to perform well with these duties.";
-                    else if (output == "itadmin")
-                        relevantSkills = "I have relevant skills useful to the role, I have achieved this when I completed a Certificate IV in proramming, this includes RDBMS such as SQL Server, MySQL, SQL, T-SQL. I have three years’ work experience working in a call centre as a Customer Service Rep with Woolworths Mobile. Some of the duties of the role included managing SAP tickets, whereby I had to administer events such as network incidents, transport and logistics, customer complaints, and input relevant data such as customer information, device details, funds, network incidents and faults. I was also known by the company to perform well with these duties.";
-                    else if (output == "dev")
-                        relevantSkills = "I have relevant skills useful to the role, which I obtained when I completed a Certificate IV in programming, that include basic C# OOP, ASP.NET Core, HTML, CSS, JavaScript, jQuery, SQL DBMS, Unity3D, Windows 10 OS, Microsoft Office 365 including Word and Excel, basic understanding of cloud services such as Azure and AWS. I am now applying these technologies into building my knowledge and skill level in creating beautiful, user friendly software, web and game applications. I am also working on using the programming, scripting and mark-up languages to learn the programming concepts such as algorithms, data structures, writing user-centric functional specifications, writing scalable code, understanding conditional logic, database design, responsive design.";
-                    else if (output == "support")
-                        relevantSkills = "I am interested in this position; I believe I have the skills and enthusiasm needed to do well. I am looking to secure a role that involves working with technology. I enjoy working with technology and dealing with computers, and Windows OS. I have knowledge in Office 365 Suite and great troubleshooting skills, which I have gained when working with Woolworths Mobile as a Tech Support Representative for mobile devices including devices such as Android, iOS and OPPO.";
-                    else if (output == "sales")
-                        relevantSkills = "I am interested in this position; I believe I have the skills and enthusiasm needed to do well. I am looking to secure a role that involves working with technology. I enjoy working with technology and dealing with computers, and Windows OS. I have knowledge in Office 365 Suite and great sales skills, which I have gained when working with Woolworths Mobile as a Tech Support Representative for mobile devices including devices such as Android, and OPPO."; 
+                    // if we at count 0 we will ask the first question
+                    if (count == 0)
+                    {
+                        Console.WriteLine("Hit F1 to start, What output would you like: 'admin' 'itadmin' 'dev' 'support' 'sales'");
+
+                        // Ensure we pressed F1 to continue, otherwise we start again, add this in front of every read line
+                        ConsoleKeyInfo KP = Console.ReadKey();
+                        if (!(KP.Key == ConsoleKey.F1))
+                        {
+                            Console.WriteLine("Please hit F1 before typing");
+                            count = 0;
+                            outputMatch = true; // make it true so we can keep looping
+                            continue;
+                        }
+
+                        output = Console.ReadLine();
+                        // if we do not enter a valid output, the bool will be true and we exit the loop using continue
+                        if (CheckOutput(output))
+                        {
+                            Console.WriteLine(inputError);
+                            outputMatch = true; // make it true so we can keep looping
+                            count = 0;
+
+
+                            continue;
+                        }
+
+                        // if we  entered a valid input then we do something
+                        //if (!CheckOutput(output))
+                        if (output == "admin")
+                        {
+                            Console.WriteLine("Success");
+                            relevantSkills = "I have three years’ work experience working in a call centre as a Customer Service Rep with Woolworths Mobile. Some of the duties of the role included managing SAP tickets, whereby I had to administer events such as network incidents, transport and logistics, customer complaints, and input relevant data such as customer information, device details, funds, network incidents and faults. I was also known by the company to perform well with these duties.";
+                            count = 1;
+                        }
+                        else if (output == "itadmin")
+                        {
+                            relevantSkills = "I have relevant skills useful to the role, I have achieved this when I completed a Certificate IV in proramming, this includes RDBMS such as SQL Server, MySQL, SQL, T-SQL. I have three years’ work experience working in a call centre as a Customer Service Rep with Woolworths Mobile. Some of the duties of the role included managing SAP tickets, whereby I had to administer events such as network incidents, transport and logistics, customer complaints, and input relevant data such as customer information, device details, funds, network incidents and faults. I was also known by the company to perform well with these duties.";
+                            count = 1;
+                        }
+                        else if (output == "dev")
+                        {
+                            relevantSkills = "I have relevant skills useful to the role, which I obtained when I completed a Certificate IV in programming, that include basic C# OOP, ASP.NET Core, HTML, CSS, JavaScript, jQuery, SQL DBMS, Unity3D, Windows 10 OS, Microsoft Office 365 including Word and Excel, basic understanding of cloud services such as Azure and AWS. I am now applying these technologies into building my knowledge and skill level in creating beautiful, user friendly software, web and game applications. I am also working on using the programming, scripting and mark-up languages to learn the programming concepts such as algorithms, data structures, writing user-centric functional specifications, writing scalable code, understanding conditional logic, database design, responsive design.";
+                            count = 1;
+                        }
+                        else if (output == "support")
+                        {
+                            relevantSkills = "I am interested in this position; I believe I have the skills and enthusiasm needed to do well. I am looking to secure a role that involves working with technology. I enjoy working with technology and dealing with computers, and Windows OS. I have knowledge in Office 364 Suite and great troubleshooting skills, which I have gained when working with Woolworths Mobile as a Tech Support Representative for mobile devices including devices such as Android, iOS and OPPO.";
+                            count = 1;
+                        }
+                        else if (output == "sales")
+                        {
+                            relevantSkills = "I am interested in this position; I believe I have the skills and enthusiasm needed to do well. I am looking to secure a role that involves working with technology. I enjoy working with technology and dealing with computers, and Windows OS. I have knowledge in Office 364 Suite and great sales skills, which I have gained when working with Woolworths Mobile as a Tech Support Representative for mobile devices including devices such as Android, and OPPO.";
+                            count = 1;
+                        }
+                    }
+
+                    // once we have gathered details we again reassign the correct outputmatch value for false, each time the loop resets by assigning outputmatch to true to correct a previous step
+                    outputMatch = CheckOutput(output);
+
+
                     // TODO: Maybe implement confirmation after each prompt later
                     // Gather all variables that we will need to insert into the document
                     string date = DateTime.Now.ToString("dddd, dd MMMM yyyy");
 
-                    Console.WriteLine("Enter the Hiring Manger's Name (enter 'n' if none)");
-                    string hiringManagersName = Console.ReadLine();
-                    if (hiringManagersName == "n") hiringManagersName = ""; // if there is no name we reassign the value with an empty string
+                    if (count == 1)
+                    {
+                        Console.WriteLine("Enter the Hiring Manger's Name (enter 'n' if none)");
+
+                        // Ensure to hit F1 or we move back to asking Hiring Managers Name
+                        ConsoleKeyInfo KP = Console.ReadKey();
+                        if (!(KP.Key == ConsoleKey.F1))
+                        {
+                            Console.WriteLine("Please hit F1 before typing\n"); // error occurs when we do not press the correct key
+                            count = 1;
+                            outputMatch = true; // make it true so we can keep looping
+                            continue;
+                        }
+                        hiringManagersName = Console.ReadLine();
+                        count = 2;
+
+                        if (hiringManagersName == "n")
+                        {
+                            hiringManagersName = ""; // if there is no name we reassign the value with an empty string
+                        }
+                    }
+
 
                     Console.WriteLine("Enter the company (hit 'n' if none)");
                     string company = Console.ReadLine();
@@ -121,7 +193,7 @@ namespace FindAndReplaceHelper
                             case 7:
                                 contentReplace.Text = "<insert relevant skills intro here>"; // might be skipping because it is to enter before other answers? if it does not work then put both out of loop
                                 break;
-                            
+
                             //case 6:
                             //    contentReplace.Text = "<Key-Skills. Here you want to highlight some of your core skills that talk to the key selection criteria for the role. E.g HTML>";
                             //    break;
@@ -216,23 +288,22 @@ namespace FindAndReplaceHelper
                             outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\SoftWareDeveloperCover.docx";
                             break;
                     }
-                } while (CheckOutput(output)); // if all of these do not contain key word we keep looping
+                } while (outputMatch && (count == 0 || count == 1)); // although it matches if the counter is not the last counter
 
                 // CHeck spelling
-                var language = word.Languages[WdLanguageID.wdEnglishUS];
+                //var language = word.Languages[WdLanguageID.wdEnglishUS];
+                //// Set the filename of the custom dictionary
+                //// -- Based on:
+                //// http://support.microsoft.com/kb/292108
+                //// http://www.delphigroups.info/2/c2/261707.html
+                //const string custDict = "custom.dic";
 
-                // Set the filename of the custom dictionary
-                // -- Based on:
-                // http://support.microsoft.com/kb/292108
-                // http://www.delphigroups.info/2/c2/261707.html
-                const string custDict = "custom.dic";
+                //// Get the spelling suggestions
+                //var suggestions = word.GetSpellingSuggestions("overfloww", custDict, MainDictionary: language.Name);
 
-                // Get the spelling suggestions
-                var suggestions = word.GetSpellingSuggestions("overfloww", custDict, MainDictionary: language.Name);
-
-                // Print each suggestion to the console
-                foreach (SpellingSuggestion spellingSuggestion in suggestions)
-                    Console.WriteLine("Suggested replacement: {0}", spellingSuggestion.Name);
+                //// Print each suggestion to the console
+                //foreach (SpellingSuggestion spellingSuggestion in suggestions)
+                //    Console.WriteLine("Suggested replacement: {0}", spellingSuggestion.Name);
 
                 // TODO: make corrections
 
