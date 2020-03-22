@@ -34,7 +34,7 @@ namespace FindAndReplaceHelper
                 //
                 // determine outputfile name
                 object outputFI = new object(); // check if instantiation works
-                string output = "", inputError = "Sorry you did not enter a valid input", hiringManagersName = null, relevantSkills = "";
+                string output = "", inputError = "Sorry you did not enter a valid input", hiringManagersName = null, relevantSkills = "", company = "", bonusQuestion = "", roleTitle = "";
                 int count = 0;
                 bool outputMatch = true;
 
@@ -112,7 +112,7 @@ namespace FindAndReplaceHelper
 
                     if (count == 1)
                     {
-                        Console.WriteLine("Enter the Hiring Manger's Name (enter 'n' if none)");
+                        Console.WriteLine("Hit F1 ti begin, then Enter the Hiring Manger's Name (enter 'n' if none)");
 
                         // Ensure to hit F1 or we move back to asking Hiring Managers Name
                         ConsoleKeyInfo KP = Console.ReadKey();
@@ -133,23 +133,68 @@ namespace FindAndReplaceHelper
                     }
 
 
-                    Console.WriteLine("Enter the company (hit 'n' if none)");
-                    string company = Console.ReadLine();
-                    if (company == "n") company = ""; // if there is no name we reassign the value with an empty string
+                    Console.WriteLine("Enter F1 to start, Enter the company (hit 'n' if none)");
+
+                    if (count == 2)
+                    {
+                        ConsoleKeyInfo KP = Console.ReadKey();
+                        if (!(KP.Key == ConsoleKey.F1))
+                        {
+                            Console.WriteLine("Please hit F1 before typing\n"); // error occurs when we do not press the correct key
+                            count = 2;
+                            outputMatch = true; // make it true so we can keep looping
+                            continue;
+                        }
+
+                        company = Console.ReadLine();
+                        count = 3;
+                        if (company == "n") company = ""; // if there is no name we reassign the value with an empty string
+
+                    }
 
                     string addressingEmployer = ""; // initial value will be Dear Sir/madam
                     if (hiringManagersName == "") addressingEmployer = "Sir/Madam"; // if response was  no, we will assign with the name in place of Sir/Madam
                     else if (hiringManagersName != "") addressingEmployer = hiringManagersName;
 
-                    Console.WriteLine("Enter the role title");
-                    string roleTitle = Console.ReadLine();
+                    if (count == 3)
+                    {
+                        Console.WriteLine("Enter F1 to start, then Enter the role title");
+
+                        ConsoleKeyInfo KP = Console.ReadKey();
+                        if (!(KP.Key == ConsoleKey.F1))
+                        {
+                            Console.WriteLine("Please hit F1 before typing\n"); // error occurs when we do not press the correct key
+                            count = 3;
+                            outputMatch = true; // make it true so we can keep looping
+                            continue;
+                        }
+
+                        roleTitle = Console.ReadLine();
+                        count = 4;
+                    }
 
                     string advertiser = "Seek.com.au";
                     if (company != "n") advertiser = company; // if response was not no, we will assign with the name in place of <Company> 
 
-                    Console.WriteLine("Is there a bonus question?, type 'n' if none");
-                    string bonusQuestion = Console.ReadLine();
-                    if (bonusQuestion == "n") bonusQuestion = "";
+
+                    if (count == 4)
+                    {
+                        Console.WriteLine("Enter F1 to start, Is there a bonus question?, type 'n' if none");
+
+                        ConsoleKeyInfo KP = Console.ReadKey();
+                        if (!(KP.Key == ConsoleKey.F1))
+                        {
+                            Console.WriteLine("Please hit F1 before typing\n"); // error occurs when we do not press the correct key
+                            count = 4;
+                            outputMatch = true; // make it true so we can keep looping
+                            continue;
+                        }
+
+                        bonusQuestion = Console.ReadLine();
+                        count = 5;
+                        if (bonusQuestion == "n") bonusQuestion = "";
+
+                    }
 
                     //Console.WriteLine("Key-Skills. Here you want to highlight some of your core skills that talk to the key selection criteria for the role. E.g HTML");
                     //string keySkills = Console.ReadLine();
@@ -288,7 +333,8 @@ namespace FindAndReplaceHelper
                             outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\SoftWareDeveloperCover.docx";
                             break;
                     }
-                } while (outputMatch && (count == 0 || count == 1)); // although it matches if the counter is not the last counter
+                    // keep looping until either the counter is not one of the readline values, and while the elected output is valid
+                } while (outputMatch && (count == 0 || count == 1 || count == 2 || count == 3 || count == 4)); 
 
                 // CHeck spelling
                 //var language = word.Languages[WdLanguageID.wdEnglishUS];
