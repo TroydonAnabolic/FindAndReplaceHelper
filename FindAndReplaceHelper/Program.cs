@@ -12,6 +12,10 @@ namespace FindAndReplaceHelper
             // maybe create loops on each readline assignment to prompt for confirmation
             // Change this to an exe file, or a WinFOrms GUI/Web App
 
+            // implement try catch to avoid application crashes
+
+            // TODO: Add unit tests
+
             // TODO: method to maybe increase length of what console.readline
             byte[] inputBuffer = new byte[1024];
             Stream inputStream = Console.OpenStandardInput(inputBuffer.Length);
@@ -34,7 +38,7 @@ namespace FindAndReplaceHelper
                 //
                 // determine outputfile name
                 object outputFI = new object(); // check if instantiation works
-                string output = "", inputError = "Sorry you did not enter a valid input", hiringManagersName = null, relevantSkills = "", company = "", bonusQuestion = "", roleTitle = "";
+                string output = "", inputError = "\nSorry you did not enter a valid input\n", hiringManagersName = null, relevantSkills = "", company = "", bonusQuestion = "", roleTitle = "";
                 int count = 0;
                 bool outputMatch = true;
 
@@ -48,26 +52,30 @@ namespace FindAndReplaceHelper
                     // if we at count 0 we will ask the first question
                     if (count == 0)
                     {
-                        Console.WriteLine("Hit F1 to start, What output would you like: 'admin' 'itadmin' 'dev' 'support' 'sales'");
+                        Console.WriteLine("\nHit F1 to start, What output would you like: 'admin' 'itadmin' 'dev' 'support' 'sales'\n");
 
                         // Ensure we pressed F1 to continue, otherwise we start again, add this in front of every read line
                         ConsoleKeyInfo KP = Console.ReadKey();
                         if (!(KP.Key == ConsoleKey.F1))
                         {
-                            Console.WriteLine("Please hit F1 before typing");
+                            Console.WriteLine("\nPlease hit F1 before typing");
                             count = 0;
                             outputMatch = true; // make it true so we can keep looping
                             continue;
                         }
 
                         output = Console.ReadLine();
+
+                        // TODO: Next week -> Show preview of answers, instead of F1 show a preview of answer, hit enter again to move to next step if happy with answer, otherwise redo step by htting 'Esc' key
+                        // this methods ensure that when we exit we close the background process as opposed to manually shutting down console
+                        ExitApp(ref word, ref miss, ref docs, output);
+
                         // if we do not enter a valid output, the bool will be true and we exit the loop using continue
                         if (CheckOutput(output))
                         {
                             Console.WriteLine(inputError);
                             outputMatch = true; // make it true so we can keep looping
                             count = 0;
-
 
                             continue;
                         }
@@ -100,6 +108,7 @@ namespace FindAndReplaceHelper
                             relevantSkills = "I am interested in this position; I believe I have the skills and enthusiasm needed to do well. I am looking to secure a role that involves working with technology. I enjoy working with technology and dealing with computers, and Windows OS. I have knowledge in Office 364 Suite and great sales skills, which I have gained when working with Woolworths Mobile as a Tech Support Representative for mobile devices including devices such as Android, and OPPO.";
                             count = 1;
                         }
+                        
                     }
 
                     // once we have gathered details we again reassign the correct outputmatch value for false, each time the loop resets by assigning outputmatch to true to correct a previous step
@@ -112,18 +121,19 @@ namespace FindAndReplaceHelper
 
                     if (count == 1)
                     {
-                        Console.WriteLine("Hit F1 ti begin, then Enter the Hiring Manger's Name (enter 'n' if none)");
+                        Console.WriteLine("\nHit F1 ti begin, then Enter the Hiring Manger's Name (enter 'n' if none)\n");
 
                         // Ensure to hit F1 or we move back to asking Hiring Managers Name
                         ConsoleKeyInfo KP = Console.ReadKey();
                         if (!(KP.Key == ConsoleKey.F1))
                         {
-                            Console.WriteLine("Please hit F1 before typing\n"); // error occurs when we do not press the correct key
+                            Console.WriteLine("\nPlease hit F1 before typing\n"); // error occurs when we do not press the correct key
                             count = 1;
                             outputMatch = true; // make it true so we can keep looping
                             continue;
                         }
                         hiringManagersName = Console.ReadLine();
+                        ExitApp(ref word, ref miss, ref docs, hiringManagersName);
                         count = 2;
 
                         if (hiringManagersName == "n")
@@ -133,20 +143,21 @@ namespace FindAndReplaceHelper
                     }
 
 
-                    Console.WriteLine("Enter F1 to start, Enter the company (hit 'n' if none)");
+                    Console.WriteLine("\nEnter F1 to start, Enter the company (hit 'n' if none)\n");
 
                     if (count == 2)
                     {
                         ConsoleKeyInfo KP = Console.ReadKey();
                         if (!(KP.Key == ConsoleKey.F1))
                         {
-                            Console.WriteLine("Please hit F1 before typing\n"); // error occurs when we do not press the correct key
+                            Console.WriteLine("\nPlease hit F1 before typing\n"); // error occurs when we do not press the correct key
                             count = 2;
                             outputMatch = true; // make it true so we can keep looping
                             continue;
                         }
 
                         company = Console.ReadLine();
+                        ExitApp(ref word, ref miss, ref docs, company);
                         count = 3;
                         if (company == "n") company = ""; // if there is no name we reassign the value with an empty string
 
@@ -158,18 +169,19 @@ namespace FindAndReplaceHelper
 
                     if (count == 3)
                     {
-                        Console.WriteLine("Enter F1 to start, then Enter the role title");
+                        Console.WriteLine("\nEnter F1 to start, then Enter the role title\n");
 
                         ConsoleKeyInfo KP = Console.ReadKey();
                         if (!(KP.Key == ConsoleKey.F1))
                         {
-                            Console.WriteLine("Please hit F1 before typing\n"); // error occurs when we do not press the correct key
+                            Console.WriteLine("\nPlease hit F1 before typing\n"); // error occurs when we do not press the correct key
                             count = 3;
                             outputMatch = true; // make it true so we can keep looping
                             continue;
                         }
 
                         roleTitle = Console.ReadLine();
+                        ExitApp(ref word, ref miss, ref docs, roleTitle);
                         count = 4;
                     }
 
@@ -179,7 +191,7 @@ namespace FindAndReplaceHelper
 
                     if (count == 4)
                     {
-                        Console.WriteLine("Enter F1 to start, Is there a bonus question?, type 'n' if none");
+                        Console.WriteLine("\nEnter F1 to start, Is there a bonus question?, type 'n' if none\n");
 
                         ConsoleKeyInfo KP = Console.ReadKey();
                         if (!(KP.Key == ConsoleKey.F1))
@@ -191,6 +203,7 @@ namespace FindAndReplaceHelper
                         }
 
                         bonusQuestion = Console.ReadLine();
+                        ExitApp(ref word, ref miss, ref docs, bonusQuestion);
                         count = 5;
                         if (bonusQuestion == "n") bonusQuestion = "";
 
@@ -307,7 +320,6 @@ namespace FindAndReplaceHelper
                             ref replaceAll, ref miss, ref miss, ref miss, ref miss);
                     }
 
-                    // TODO: Format everything to black font
                     docs.Content.Font.Color = WdColor.wdColorBlack;
 
                     // TODO:possibly put this all on the top except saveas so we can use it when selecting the top intro part to acustom to job type
@@ -336,7 +348,7 @@ namespace FindAndReplaceHelper
                     // keep looping until either the counter is not one of the readline values, and while the elected output is valid
                 } while (outputMatch && (count == 0 || count == 1 || count == 2 || count == 3 || count == 4)); 
 
-                // CHeck spelling
+                // TODO: Next week: Check spelling, give spelling correction options if there are errors, and option to proceed without corrections, or option to finish after making modifitcation
                 //var language = word.Languages[WdLanguageID.wdEnglishUS];
                 //// Set the filename of the custom dictionary
                 //// -- Based on:
@@ -368,11 +380,21 @@ namespace FindAndReplaceHelper
                 CloseWordApplication(ref word, ref miss, ref docs);
             }
 
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
+            //GC.Collect();
+            //GC.WaitForPendingFinalizers();
 
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
+            //GC.Collect();
+            //GC.WaitForPendingFinalizers();
+        }
+
+        private static void ExitApp(ref Application word, ref object miss, ref Document docs, string output)
+        {
+            if (output == "exitapp")
+            {
+                Console.WriteLine("Application Shutting down");
+                CloseWordApplication(ref word, ref miss, ref docs);
+                Environment.Exit(0);
+            }
         }
 
         // bool that returns false if any condition is true !CheckOutput(output) should be used to return true
@@ -399,6 +421,22 @@ namespace FindAndReplaceHelper
                     /* ref object OriginalFormat */ ref miss,
                     /* ref object RouteDocument */ ref miss);
                 word = null;
+            }
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+        }
+
+        private static void ExitApplication(ref Application word, ref object miss, ref Document docs, string appCommand)
+        {
+            if (appCommand == "exitapp")
+            {
+                Console.WriteLine("Application Shutting down");
+                CloseWordApplication(ref word, ref miss, ref docs);
+                Environment.Exit(0);
             }
         }
     }
