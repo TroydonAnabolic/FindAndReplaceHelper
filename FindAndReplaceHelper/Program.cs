@@ -26,7 +26,7 @@ namespace FindAndReplaceHelper
             //word.Visible = true; // opens the doc
             // load all the MS Word data
             object miss = System.Reflection.Missing.Value;
-            object path = @"M:\//troyi/Documents/Troydon/JobStuff/cover letters/Customs/SEEK_Free cover letter template_2018_NZ.docx";
+            object path = @"M:\//Troydon/Documents/Troydon/JobStuff/JobHunt/cover letters/Customs/SEEK_Free_cover_letter_template_2018_NZ.docx";
             object readOnly = true;
             Document docs = word.Documents.Open(ref path, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss);
 
@@ -37,7 +37,7 @@ namespace FindAndReplaceHelper
             {
                 //
                 // determine outputfile name
-                object outputFI = new object(); // check if instantiation works
+                object outputFI = new object(); 
                 string output = "", inputError = "\nSorry you did not enter a valid input\n", hiringManagersName = null, relevantSkills = "", company = "", bonusQuestion = "", roleTitle = "";
                 int count = 0;
                 bool outputMatch = true;
@@ -327,22 +327,22 @@ namespace FindAndReplaceHelper
                     switch (output)
                     {
                         case "admin":
-                            outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\GeneralAdminCover.docx";
+                            outputFI = @"M:\Troydon\Documents\Troydon\JobStuff\JobHunt\cover letters\Customs\\GeneralAdminCover.docx";
                             break;
                         case "itadmin":
-                            outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\ItAdminCover.docx";
+                            outputFI = @"M:\Troydon\Documents\Troydon\JobStuff\JobHunt\cover letters\Customs\\ItAdminCover.docx";
                             break;
                         case "dev":
-                            outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\SoftWareDeveloperCover.docx";
+                            outputFI = @"M:\Troydon\Documents\Troydon\JobStuff\JobHunt\cover letters\Customs\\SoftWareDeveloperCover.docx";
                             break;
                         case "support":
-                            outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\ITSupportCover.docx";
+                            outputFI = @"M:\Troydon\Documents\Troydon\JobStuff\JobHunt\cover letters\Customs\\ITSupportCover.docx";
                             break;
                         case "sales":
-                            outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\ITSalesCover.docx";
+                            outputFI = @"M:\Troydon\Documents\Troydon\JobStuff\JobHunt\cover letters\Customs\\ITSalesCover.docx";
                             break;
                         default:
-                            outputFI = @"M:\troyi\Documents\Troydon\JobStuff\cover letters\Customs\\SoftWareDeveloperCover.docx";
+                            outputFI = @"M:\Troydon\Documents\Troydon\JobStuff\JobHunt\cover letters\Customs\\SoftWareDeveloperCover.docx";
                             break;
                     }
                     // keep looping until either the counter is not one of the readline values, and while the elected output is valid
