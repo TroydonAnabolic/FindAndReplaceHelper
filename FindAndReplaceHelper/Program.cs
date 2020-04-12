@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -15,7 +16,7 @@ namespace FindAndReplaceHelper
             // implement try catch to avoid application crashes
 
             // TODO: Add unit tests
-
+            // TODO: given option to select manual or automatic for the input and output paths
             // TODO: method to maybe increase length of what console.readline
             byte[] inputBuffer = new byte[1024];
             Stream inputStream = Console.OpenStandardInput(inputBuffer.Length);
@@ -26,7 +27,9 @@ namespace FindAndReplaceHelper
             //word.Visible = true; // opens the doc
             // load all the MS Word data
             object miss = System.Reflection.Missing.Value;
-            object path = @"M:\//Troydon/Documents/Troydon/JobStuff/JobHunt/cover letters/Customs/SEEK_Free_cover_letter_template_2018_NZ.docx";
+            // object path = @"M:\//Troydon/Documents/Troydon/JobStuff/JobHunt/cover letters/Customs/SEEK_Free_cover_letter_template_2018_NZ.docx";
+            Console.WriteLine("Please enter the file path you would like to use for the template.\nE.g.M:\\/Troydon/Documents/Troydon/JobStuff/JobHunt/cover letters/Customs/SEEK_Free_cover_letter_template_2018_NZ.docx");
+            object path = Console.ReadLine() ?? string.Empty;
             object readOnly = true;
             Document docs = word.Documents.Open(ref path, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss);
 
@@ -41,6 +44,7 @@ namespace FindAndReplaceHelper
                 string output = "", inputError = "\nSorry you did not enter a valid input\n", hiringManagersName = null, relevantSkills = "", company = "", bonusQuestion = "", roleTitle = "";
                 int count = 0;
                 bool outputMatch = true;
+                List<string> outputPath = new List<string>();
 
                 do
                 {
